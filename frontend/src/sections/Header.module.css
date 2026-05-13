@@ -5,6 +5,16 @@
   border-bottom: 1px solid rgba(207, 216, 227, 0.55);
   background: rgba(245, 247, 250, 0.88);
   backdrop-filter: blur(16px);
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.scrolled {
+  border-color: rgba(188, 200, 214, 0.72);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 14px 34px rgba(15, 38, 63, 0.08);
 }
 
 .inner {
@@ -26,7 +36,8 @@
 
 .brand:focus-visible,
 .nav a:focus-visible,
-.mailLink:focus-visible {
+.mailLink:focus-visible,
+.menuButton:focus-visible {
   outline: 3px solid rgba(26, 132, 199, 0.35);
   outline-offset: 4px;
 }
@@ -70,10 +81,33 @@
   font-size: 0.94rem;
   font-weight: 700;
   text-decoration: none;
+  transition: color 160ms ease;
 }
 
 .nav a:hover {
   color: #0d6da5;
+}
+
+.menuButton {
+  display: none;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  place-items: center;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0f263f;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.menuButton:hover {
+  border-color: #1a84c7;
+  color: #0d6da5;
+  transform: translateY(-1px);
 }
 
 .actions {
@@ -91,44 +125,89 @@
   border-radius: 8px;
   background: #ffffff;
   color: #0f263f;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
 }
 
 .mailLink:hover {
   border-color: #1a84c7;
   color: #0d6da5;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 980px) {
   .inner {
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-block: 14px;
+    gap: 14px;
   }
 
   .brand {
     margin-right: auto;
   }
+
+  .menuButton {
+    display: grid;
+  }
+
+  .nav,
+  .actions {
+    display: none;
+  }
+
+  .navOpen,
+  .actionsOpen {
+    display: flex;
+    width: 100%;
+  }
+
+  .navOpen {
+    order: 3;
+    justify-content: flex-start;
+    border-top: 1px solid #dfe7ef;
+    padding-top: 12px;
+  }
+
+  .actionsOpen {
+    order: 4;
+  }
 }
 
 @media (max-width: 680px) {
-  .header {
-    position: static;
-  }
-
   .inner {
-    align-items: stretch;
+    min-height: 68px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-block: 12px;
   }
 
   .brand {
-    width: 100%;
+    min-width: 0;
     margin-right: 0;
+  }
+
+  .brand span:last-child {
+    min-width: 0;
+  }
+
+  .brand strong {
+    font-size: 0.92rem;
+  }
+
+  .brand small {
+    font-size: 0.72rem;
   }
 
   .nav {
     width: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 4px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav a {
+    border-bottom: 1px solid #e7edf3;
+    padding: 12px 0;
   }
 
   .actions {
@@ -137,5 +216,19 @@
 
   .actions a:first-child {
     flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .nav a,
+  .menuButton,
+  .mailLink {
+    transition: none;
+  }
+
+  .menuButton:hover,
+  .mailLink:hover {
+    transform: none;
   }
 }

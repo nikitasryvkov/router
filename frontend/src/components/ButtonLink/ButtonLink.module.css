@@ -68,3 +68,13 @@
     width: 100%;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .button:hover {
+    transform: none;
+  }
+}

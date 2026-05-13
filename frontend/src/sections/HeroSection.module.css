@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   isolation: isolate;
-  min-height: clamp(500px, calc(100svh - 230px), 560px);
+  min-height: clamp(560px, calc(100svh - 210px), 620px);
   overflow: hidden;
   scroll-margin-top: 96px;
   background:
@@ -36,15 +36,80 @@
   opacity: 0.84;
 }
 
+.networkScheme {
+  position: absolute;
+  z-index: -1;
+  top: 78px;
+  right: max(22px, 6vw);
+  width: min(420px, 38vw);
+  aspect-ratio: 1.45;
+  opacity: 0.38;
+  background:
+    linear-gradient(25deg, transparent 49%, rgba(115, 213, 192, 0.45) 50%, transparent 51%),
+    linear-gradient(155deg, transparent 49%, rgba(115, 213, 192, 0.28) 50%, transparent 51%),
+    linear-gradient(90deg, transparent 49%, rgba(115, 213, 192, 0.22) 50%, transparent 51%);
+  animation: schemeIntro 360ms ease both;
+}
+
+.networkScheme span {
+  position: absolute;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(185, 241, 229, 0.78);
+  border-radius: 50%;
+  background: rgba(15, 38, 63, 0.72);
+  box-shadow: 0 0 0 8px rgba(14, 174, 129, 0.08);
+}
+
+.routerNode {
+  left: 8%;
+  top: 58%;
+}
+
+.wifiNode {
+  left: 46%;
+  top: 20%;
+}
+
+.meshNode {
+  right: 16%;
+  top: 52%;
+}
+
+.officeNode {
+  right: 6%;
+  bottom: 10%;
+}
+
 .inner {
   display: flex;
-  min-height: clamp(500px, calc(100svh - 230px), 560px);
+  min-height: clamp(560px, calc(100svh - 210px), 620px);
   align-items: center;
-  padding-block: 54px 24px;
+  padding-block: 54px 78px;
 }
 
 .content {
   width: min(710px, 100%);
+}
+
+.revealOne,
+.revealTwo,
+.revealThree,
+.revealFour {
+  animation: heroIntro 340ms ease both;
+}
+
+.revealTwo {
+  animation-delay: 80ms;
+}
+
+.revealThree {
+  animation-delay: 150ms;
+}
+
+.revealFour {
+  animation-delay: 220ms;
 }
 
 .kicker {
@@ -109,9 +174,39 @@
   color: #73d5c0;
 }
 
+@keyframes heroIntro {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes schemeIntro {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 0.38;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 860px) {
   .hero {
     min-height: auto;
+  }
+
+  .networkScheme {
+    right: -34px;
+    width: 360px;
+    opacity: 0.22;
   }
 
   .heroImage {
@@ -123,7 +218,7 @@
 
   .inner {
     min-height: auto;
-    padding-block: 68px 104px;
+    padding-block: 68px 92px;
   }
 
   .benefits {
@@ -133,10 +228,29 @@
 
 @media (max-width: 520px) {
   .content h1 {
-    font-size: clamp(2.45rem, 16vw, 3.6rem);
+    font-size: clamp(2.24rem, 12vw, 3rem);
+    line-height: 1.06;
   }
 
   .lead {
     font-size: 1.03rem;
+  }
+
+  .heroImage {
+    display: none;
+  }
+
+  .networkScheme {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .networkScheme,
+  .revealOne,
+  .revealTwo,
+  .revealThree,
+  .revealFour {
+    animation: none;
   }
 }

@@ -1,0 +1,208 @@
+.section {
+  padding-block: 88px;
+  background: #f5f7fa;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.42fr);
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.controls {
+  display: grid;
+  gap: 18px;
+  border: 1px solid #dfe7ef;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 24px;
+  box-shadow: 0 16px 42px rgba(15, 38, 63, 0.06);
+}
+
+.group {
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.group legend {
+  margin-bottom: 10px;
+  color: #34465a;
+  font-weight: 900;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip,
+.segment button,
+.stepper button {
+  cursor: pointer;
+  border: 1px solid #d3dde8;
+  background: #f8fafc;
+  color: #24364a;
+  font-weight: 800;
+  transition:
+    border-color 170ms ease,
+    background 170ms ease,
+    color 170ms ease,
+    transform 170ms ease;
+}
+
+.chip {
+  min-height: 42px;
+  border-radius: 8px;
+  padding: 9px 13px;
+}
+
+.chip:hover,
+.chip:focus-visible,
+.segment button:hover,
+.segment button:focus-visible,
+.stepper button:hover,
+.stepper button:focus-visible,
+.selected {
+  border-color: rgba(14, 174, 129, 0.55);
+  background: #eaf8f4;
+  color: #0f513f;
+}
+
+.chip:hover,
+.segment button:hover,
+.stepper button:hover {
+  transform: translateY(-1px);
+}
+
+.chip:focus-visible,
+.segment button:focus-visible,
+.stepper button:focus-visible {
+  outline: 3px solid rgba(26, 132, 199, 0.35);
+  outline-offset: 3px;
+}
+
+.segment {
+  display: inline-grid;
+  overflow: hidden;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid #d3dde8;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.segment button {
+  min-width: 130px;
+  border: 0;
+  border-radius: 0;
+  padding: 11px 14px;
+}
+
+.segment button + button {
+  border-left: 1px solid #d3dde8;
+}
+
+.stepper {
+  display: inline-grid;
+  overflow: hidden;
+  grid-template-columns: 46px 64px 46px;
+  border: 1px solid #d3dde8;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.stepper button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 0;
+  font-size: 1.25rem;
+}
+
+.stepper output {
+  display: grid;
+  min-height: 44px;
+  place-items: center;
+  border-inline: 1px solid #d3dde8;
+  color: #102033;
+  font-weight: 900;
+}
+
+.summary {
+  position: sticky;
+  top: 98px;
+  align-self: start;
+  border: 1px solid rgba(14, 174, 129, 0.34);
+  border-radius: 8px;
+  background: #102033;
+  color: #ffffff;
+  padding: 26px;
+  box-shadow: 0 18px 42px rgba(15, 38, 63, 0.16);
+}
+
+.summary span {
+  display: block;
+  color: #9ce7d8;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.summary h3 {
+  margin: 14px 0 0;
+  color: #ffffff;
+  font-size: clamp(1.8rem, 4vw, 2.55rem);
+  line-height: 1.05;
+}
+
+.summary p {
+  margin: 16px 0 22px;
+  color: #d9e6f2;
+  line-height: 1.6;
+}
+
+@media (max-width: 860px) {
+  .panel {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .section {
+    padding-block: 68px;
+  }
+
+  .controls,
+  .summary {
+    padding: 18px;
+  }
+
+  .segment {
+    width: 100%;
+  }
+
+  .segment button {
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip,
+  .segment button,
+  .stepper button {
+    transition: none;
+  }
+
+  .chip:hover,
+  .segment button:hover,
+  .stepper button:hover {
+    transform: none;
+  }
+}

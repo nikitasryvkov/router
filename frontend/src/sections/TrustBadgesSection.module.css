@@ -1,0 +1,149 @@
+.section {
+  padding-block: 46px;
+  background: #ffffff;
+}
+
+.header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #0d8767;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.header h2 {
+  max-width: 720px;
+  margin: 0;
+  color: #102033;
+  font-size: clamp(1.55rem, 3vw, 2.35rem);
+  line-height: 1.18;
+}
+
+.badges {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.badges li {
+  position: relative;
+}
+
+.badge {
+  display: flex;
+  width: 100%;
+  min-height: 74px;
+  cursor: help;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #dfe7ef;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #12263c;
+  padding: 14px;
+  text-align: left;
+  transition:
+    border-color 170ms ease,
+    background 170ms ease,
+    transform 170ms ease;
+}
+
+.badge svg {
+  flex: 0 0 auto;
+  color: #0d8767;
+}
+
+.badge span {
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.badge:hover,
+.badge:focus-visible {
+  border-color: rgba(14, 174, 129, 0.48);
+  background: #eefaf7;
+  transform: translateY(-2px);
+}
+
+.badge:focus-visible {
+  outline: 3px solid rgba(26, 132, 199, 0.35);
+  outline-offset: 3px;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  bottom: calc(100% + 10px);
+  width: min(300px, 82vw);
+  pointer-events: none;
+  border: 1px solid rgba(15, 38, 63, 0.1);
+  border-radius: 8px;
+  background: #102033;
+  color: #f7fbff;
+  padding: 12px 14px;
+  box-shadow: 0 16px 38px rgba(15, 38, 63, 0.18);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.badges li:hover .tooltip,
+.badge:focus-visible + .tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1050px) {
+  .badges {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .section {
+    padding-block: 36px;
+  }
+
+  .header {
+    display: block;
+  }
+
+  .badges {
+    grid-template-columns: 1fr;
+  }
+
+  .tooltip {
+    right: auto;
+    left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge,
+  .tooltip {
+    transition: none;
+  }
+
+  .badge:hover,
+  .badge:focus-visible {
+    transform: none;
+  }
+}
