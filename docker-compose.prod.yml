@@ -1,0 +1,56 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_PUBLIC_EMAIL: ${PUBLIC_EMAIL:-denis@c777.ru}
+        VITE_PUBLIC_TELEGRAM_HANDLE: ${PUBLIC_TELEGRAM_HANDLE:-@czzttt}
+        VITE_PUBLIC_TELEGRAM_URL: ${PUBLIC_TELEGRAM_URL:-https://t.me/czzttt}
+        VITE_PUBLIC_OWNER_NAME: ${PUBLIC_OWNER_NAME:-ИП Шалякин Денис Андреевич}
+        VITE_PUBLIC_INN: ${PUBLIC_INN:-233010036207}
+        VITE_PUBLIC_OGRNIP: ${PUBLIC_OGRNIP:-322237500360850}
+    restart: unless-stopped
+    expose:
+      - '80'
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      PUBLIC_EMAIL: ${PUBLIC_EMAIL:-denis@c777.ru}
+      PUBLIC_TELEGRAM_HANDLE: ${PUBLIC_TELEGRAM_HANDLE:-@czzttt}
+      PUBLIC_TELEGRAM_URL: ${PUBLIC_TELEGRAM_URL:-https://t.me/czzttt}
+      PUBLIC_OWNER_NAME: ${PUBLIC_OWNER_NAME:-ИП Шалякин Денис Андреевич}
+      PUBLIC_INN: ${PUBLIC_INN:-233010036207}
+      PUBLIC_OGRNIP: ${PUBLIC_OGRNIP:-322237500360850}
+    restart: unless-stopped
+    expose:
+      - '8080'
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:8080/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      frontend:
+        condition: service_started
+      backend:
+        condition: service_healthy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.https.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    restart: unless-stopped

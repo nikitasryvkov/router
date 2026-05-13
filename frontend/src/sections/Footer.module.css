@@ -1,0 +1,60 @@
+.footer {
+  border-top: 1px solid #dfe7ef;
+  background: #ffffff;
+  color: #526173;
+  padding-block: 34px;
+}
+
+.inner {
+  display: grid;
+  gap: 22px;
+}
+
+.legal,
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.legal strong {
+  color: #102033;
+}
+
+.contacts {
+  font-style: normal;
+}
+
+.contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0d6da5;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.contacts a:hover {
+  color: #0d8767;
+}
+
+.contacts a:focus-visible {
+  outline: 3px solid rgba(26, 132, 199, 0.35);
+  outline-offset: 3px;
+}
+
+.notice,
+.shortNotice {
+  max-width: 980px;
+  margin: 0;
+  line-height: 1.62;
+}
+
+.notice {
+  color: #435267;
+}
+
+.shortNotice {
+  color: #687789;
+  font-size: 0.95rem;
+}

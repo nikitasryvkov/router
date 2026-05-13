@@ -1,0 +1,44 @@
+.item {
+  border: 1px solid #dfe7ef;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 34px rgba(15, 38, 63, 0.05);
+}
+
+.item summary {
+  display: flex;
+  min-height: 68px;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  color: #142033;
+  font-weight: 800;
+}
+
+.item summary::-webkit-details-marker {
+  display: none;
+}
+
+.item summary svg {
+  flex: 0 0 auto;
+  transition: transform 160ms ease;
+}
+
+.item[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.item summary:focus-visible {
+  outline: 3px solid rgba(26, 132, 199, 0.35);
+  outline-offset: 3px;
+}
+
+.item p {
+  margin: 0;
+  padding: 0 20px 20px;
+  color: #566474;
+  line-height: 1.65;
+}

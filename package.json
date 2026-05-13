@@ -1,0 +1,16 @@
+{
+  "name": "network-specialist-landing",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix frontend run build && npm --prefix backend run build",
+    "lint": "npm --prefix frontend run lint && npm --prefix backend run lint",
+    "typecheck": "npm --prefix frontend run typecheck && npm --prefix backend run typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:e2e:proxy": "node scripts/e2e-proxy-smoke.mjs"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}

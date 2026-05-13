@@ -1,0 +1,17 @@
+.section {
+  padding-block: 88px;
+  background: #f5f7fa;
+}
+
+.list {
+  display: grid;
+  max-width: 900px;
+  gap: 12px;
+  margin: 34px auto 0;
+}
+
+@media (max-width: 620px) {
+  .section {
+    padding-block: 68px;
+  }
+}
