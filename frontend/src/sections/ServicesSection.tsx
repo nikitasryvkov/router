@@ -12,7 +12,7 @@ export function ServicesSection() {
           eyebrow="Услуги"
           id="services-title"
           title="С какими задачами помогаю"
-          text="От разовой настройки роутера до понятной схемы домашней сети или небольшой офисной инфраструктуры."
+          text="Подключение и настройка сетевого оборудования, Wi-Fi, роутеров, Mesh-сетей, VPN, ПК и принтеров для дома, офиса и коммерческих помещений."
         />
         <div className={styles.cardGrid}>
           {services.map((service) => (

@@ -1,15 +1,19 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, it } from 'vitest';
 import { App } from '../src/app/App';
 
 describe('landing page DOM contracts', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('renders the main heading and contact links', () => {
     render(<App />);
 
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: 'Настройка роутеров, Wi-Fi и сети',
+        name: 'Настройка сетевого оборудования, Wi-Fi и роутеров',
       })
     ).toBeTruthy();
 
@@ -24,7 +28,7 @@ describe('landing page DOM contracts', () => {
   it('does not render personal-data collection controls', () => {
     render(<App />);
 
-    expect(document.querySelectorAll('form, input, textarea').length).toBe(0);
+    expect(document.querySelectorAll('form, input, textarea, select').length).toBe(0);
   });
 
   it('keeps aria-labelledby references valid', () => {
@@ -57,5 +61,16 @@ describe('landing page DOM contracts', () => {
     for (const link of externalLinks) {
       expect(link.rel.split(/\s+/)).toContain('noreferrer');
     }
+  });
+
+  it('shows a local service recommendation without form submission', () => {
+    render(<App />);
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Нужно покрыть Wi-Fi большую площадь.' })
+    );
+
+    expect(screen.getAllByText('Wi-Fi на большой площади').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('от 6 000 ₽').length).toBeGreaterThan(0);
   });
 });

@@ -8,13 +8,14 @@ export function FinalCtaSection() {
   const { config: siteConfig } = useSiteConfig();
 
   return (
-    <section className={styles.section} aria-labelledby="final-cta-title">
+    <section className={styles.section} id="contacts" aria-labelledby="final-cta-title">
       <Container className={styles.inner}>
         <div>
-          <h2 id="final-cta-title">Нужна стабильная сеть без лишней сложности?</h2>
+          <h2 id="final-cta-title">Нужно настроить сеть, Wi-Fi или оборудование?</h2>
           <p>
-            Напишите, какая задача стоит: модель роутера, провайдер, что не работает или что
-            нужно настроить. Я подскажу возможный вариант решения и ориентир по стоимости.
+            Напишите, что требуется настроить: роутер, Wi-Fi, Mesh-сеть, VPN, офисную технику
+            или сетевое оборудование. Укажите модель устройства, провайдера и кратко опишите
+            задачу - я подскажу возможный вариант решения и ориентир по стоимости.
           </p>
         </div>
         <div className={styles.actions}>

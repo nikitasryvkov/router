@@ -12,7 +12,7 @@ export function FaqSection() {
           eyebrow="FAQ"
           id="faq-title"
           title="Частые вопросы"
-          text="Короткие ответы по удаленной настройке, моделям роутеров, подготовке и отсутствию формы заявки."
+          text="Короткие ответы по роутерам, Wi-Fi, Mesh-сетям, VPN, офисной технике и отсутствию формы заявки."
           align="center"
         />
         <div className={styles.list}>

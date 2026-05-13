@@ -5,6 +5,7 @@ import { Header } from '../sections/Header';
 import { HeroSection } from '../sections/HeroSection';
 import { ImportanceSection } from '../sections/ImportanceSection';
 import { PricingSection } from '../sections/PricingSection';
+import { ServiceChooserSection } from '../sections/ServiceChooserSection';
 import { ServicesSection } from '../sections/ServicesSection';
 import { WhenToContactSection } from '../sections/WhenToContactSection';
 import { WorkProcessSection } from '../sections/WorkProcessSection';
@@ -16,6 +17,7 @@ export function LandingPage() {
       <main>
         <HeroSection />
         <ServicesSection />
+        <ServiceChooserSection />
         <PricingSection />
         <WorkProcessSection />
         <WhenToContactSection />

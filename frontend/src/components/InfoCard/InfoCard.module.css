@@ -2,7 +2,7 @@
   display: grid;
   gap: 14px;
   align-content: start;
-  min-height: 210px;
+  min-height: 100%;
   border: 1px solid #dfe7ef;
   border-radius: 8px;
   background: #ffffff;
@@ -32,4 +32,31 @@
   margin: 0;
   color: #5b6878;
   line-height: 1.6;
+}
+
+.includes {
+  margin-top: 4px;
+  border-top: 1px solid #e7edf3;
+  padding-top: 14px;
+}
+
+.includes strong {
+  display: block;
+  margin-bottom: 9px;
+  color: #102033;
+  font-size: 0.9rem;
+}
+
+.includes ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+  color: #4f5f70;
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
+.includes li::marker {
+  color: #0eae81;
 }

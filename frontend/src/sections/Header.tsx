@@ -5,10 +5,11 @@ import { useSiteConfig } from '../shared/siteConfigContext';
 import styles from './Header.module.css';
 
 const navItems = [
-  { href: '#services', label: 'Задачи' },
+  { href: '#services', label: 'Услуги' },
   { href: '#pricing', label: 'Цены' },
   { href: '#process', label: 'Как работаю' },
   { href: '#faq', label: 'FAQ' },
+  { href: '#contacts', label: 'Контакты' },
 ];
 
 export function Header() {
