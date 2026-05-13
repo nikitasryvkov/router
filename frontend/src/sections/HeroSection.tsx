@@ -10,12 +10,6 @@ export function HeroSection() {
 
   return (
     <section className={styles.hero} id="top" aria-labelledby="hero-title">
-      <div className={styles.networkScheme} aria-hidden="true">
-        <span className={styles.routerNode} />
-        <span className={styles.wifiNode} />
-        <span className={styles.meshNode} />
-        <span className={styles.officeNode} />
-      </div>
       <img
         className={styles.heroImage}
         src="/network-workstation.svg"
@@ -23,16 +17,14 @@ export function HeroSection() {
       />
       <Container className={styles.inner}>
         <div className={styles.content}>
-          <p className={[styles.kicker, styles.revealOne].join(' ')}>Дом и небольшой офис</p>
-          <h1 className={styles.revealTwo} id="hero-title">
-            Настройка роутеров, Wi-Fi и сети
-          </h1>
-          <p className={[styles.lead, styles.revealThree].join(' ')}>
+          <p className={styles.kicker}>Дом и небольшой офис</p>
+          <h1 id="hero-title">Настройка роутеров, Wi-Fi и сети</h1>
+          <p className={styles.lead}>
             Помогу подключить интернет, настроить стабильный Wi-Fi, усилить покрытие,
             настроить роутер, Mesh-систему, VPN, гостевую сеть и оборудование для дома или
             небольшого офиса.
           </p>
-          <div className={[styles.actions, styles.revealFour].join(' ')} aria-label="Способы связи">
+          <div className={styles.actions} aria-label="Способы связи">
             <ButtonLink
               href={siteConfig.telegramUrl}
               target="_blank"

@@ -1,5 +1,4 @@
-import { ScrollReveal } from '../components/ScrollReveal/ScrollReveal';
-import { ServiceCard } from '../components/ServiceCard/ServiceCard';
+import { InfoCard } from '../components/InfoCard/InfoCard';
 import { SectionHeader } from '../components/SectionHeader/SectionHeader';
 import { Container } from '../components/Container/Container';
 import { services } from '../shared/content';
@@ -9,19 +8,17 @@ export function ServicesSection() {
   return (
     <section className={styles.section} id="services" aria-labelledby="services-title">
       <Container>
-        <ScrollReveal>
-          <SectionHeader
-            eyebrow="Услуги"
-            id="services-title"
-            title="С какими задачами помогаю"
-            text="Наведите на карточку, чтобы увидеть подходящий сценарий, или раскройте ее, чтобы посмотреть состав работ."
-          />
-          <div className={styles.cardGrid}>
-            {services.map((service) => (
-              <ServiceCard key={service.title} {...service} />
-            ))}
-          </div>
-        </ScrollReveal>
+        <SectionHeader
+          eyebrow="Услуги"
+          id="services-title"
+          title="С какими задачами помогаю"
+          text="От разовой настройки роутера до понятной схемы домашней сети или небольшой офисной инфраструктуры."
+        />
+        <div className={styles.cardGrid}>
+          {services.map((service) => (
+            <InfoCard key={service.title} {...service} />
+          ))}
+        </div>
       </Container>
     </section>
   );

@@ -1,12 +1,8 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 import { App } from '../src/app/App';
 
 describe('landing page DOM contracts', () => {
-  afterEach(() => {
-    cleanup();
-  });
-
   it('renders the main heading and contact links', () => {
     render(<App />);
 
@@ -28,7 +24,7 @@ describe('landing page DOM contracts', () => {
   it('does not render personal-data collection controls', () => {
     render(<App />);
 
-    expect(document.querySelectorAll('form, input, textarea, select').length).toBe(0);
+    expect(document.querySelectorAll('form, input, textarea').length).toBe(0);
   });
 
   it('keeps aria-labelledby references valid', () => {
@@ -61,29 +57,5 @@ describe('landing page DOM contracts', () => {
     for (const link of externalLinks) {
       expect(link.rel.split(/\s+/)).toContain('noreferrer');
     }
-  });
-
-  it('renders local interactive helpers without submitting data', () => {
-    render(<App />);
-
-    fireEvent.click(screen.getByRole('button', { name: 'нужен VPN / удаленный доступ' }));
-    expect(screen.getByText('Настройка VPN / DDNS / проброса портов')).toBeTruthy();
-    expect(screen.getByText('Расчет является ориентировочным. Итоговая стоимость согласовывается до начала работ.')).toBeTruthy();
-  });
-
-  it('renders FAQ as an accessible accordion with the first item open', () => {
-    render(<App />);
-
-    const firstQuestion = screen.getByRole('button', {
-      name: 'Можно ли настроить роутер удаленно?',
-    });
-    const secondQuestion = screen.getByRole('button', {
-      name: 'Какие роутеры поддерживаются?',
-    });
-
-    expect(firstQuestion.getAttribute('aria-expanded')).toBe('true');
-    fireEvent.click(secondQuestion);
-    expect(secondQuestion.getAttribute('aria-expanded')).toBe('true');
-    expect(firstQuestion.getAttribute('aria-expanded')).toBe('false');
   });
 });

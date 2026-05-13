@@ -1,5 +1,4 @@
 import { LockKeyhole, Router, Wifi } from 'lucide-react';
-import { ScrollReveal } from '../components/ScrollReveal/ScrollReveal';
 import { Container } from '../components/Container/Container';
 import styles from './ImportanceSection.module.css';
 
@@ -7,11 +6,11 @@ export function ImportanceSection() {
   return (
     <section className={styles.section} aria-labelledby="importance-title">
       <Container className={styles.layout}>
-        <ScrollReveal>
+        <div>
           <p className={styles.eyebrow}>Почему это важно</p>
           <h2 id="importance-title">Нормальная сеть начинается с аккуратной настройки</h2>
-        </ScrollReveal>
-        <ScrollReveal className={styles.text} delay={90}>
+        </div>
+        <div className={styles.text}>
           <p>
             Неправильно настроенный роутер может снижать скорость, создавать обрывы,
             конфликтовать с устройствами, плохо покрывать помещение и оставлять сеть менее
@@ -32,7 +31,7 @@ export function ImportanceSection() {
               <LockKeyhole size={20} aria-hidden="true" /> базовая защита
             </span>
           </div>
-        </ScrollReveal>
+        </div>
       </Container>
     </section>
   );
