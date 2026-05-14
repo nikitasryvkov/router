@@ -64,6 +64,7 @@
 }
 
 .content h1 {
+  width: 100%;
   max-width: 760px;
   margin: 0;
   color: #ffffff;
@@ -104,8 +105,13 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  min-width: 0;
   color: #e9f3fb;
   line-height: 1.45;
+}
+
+.benefits span {
+  min-width: 0;
 }
 
 .benefits svg {
@@ -150,8 +156,8 @@
   }
 
   .content h1 {
-    font-size: clamp(2rem, 9.2vw, 2.5rem);
-    line-height: 1.06;
+    font-size: clamp(1.8rem, 8.4vw, 2.2rem);
+    line-height: 1.08;
   }
 
   .content h1 span {
@@ -160,5 +166,9 @@
 
   .lead {
     font-size: 1.03rem;
+  }
+
+  .actions {
+    width: 100%;
   }
 }

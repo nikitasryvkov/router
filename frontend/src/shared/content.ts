@@ -46,7 +46,6 @@ export const heroBenefits = [
   'помощь с выбором оборудования',
   'Wi-Fi для квартиры, дома, офиса и коммерческих помещений',
   'настройка роутеров, Mesh-сетей, VPN, ПК и принтеров',
-  'без форм, cookies и сбора персональных данных на сайте',
 ];
 
 export const services: CardContent[] = [
@@ -279,7 +278,7 @@ export const serviceSuggestions: ServiceSuggestion[] = [
 export const workSteps = [
   {
     title: 'Вы пишете',
-    text: 'Пишите в Telegram или на email без формы заявки на сайте.',
+    text: 'Пишите в Telegram или на email и кратко описываете задачу.',
   },
   {
     title: 'Описываете задачу',

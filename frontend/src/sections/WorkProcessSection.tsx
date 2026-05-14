@@ -11,7 +11,7 @@ export function WorkProcessSection() {
           eyebrow="Процесс"
           id="process-title"
           title="Как проходит работа"
-          text="Без формы заявки на сайте: только внешняя связь через Telegram или email. Вы сами решаете, что и когда отправлять."
+          text="Коротко разбираем задачу, оборудование и формат работы, затем согласовываем стоимость до начала настройки."
         />
         <ol className={styles.steps}>
           {workSteps.map((step, index) => (

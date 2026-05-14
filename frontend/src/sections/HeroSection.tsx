@@ -19,7 +19,7 @@ export function HeroSection() {
         <div className={styles.content}>
           <p className={styles.kicker}>Дом, офис и коммерческие помещения</p>
           <h1 id="hero-title">
-            <span>Настройка сетевого</span> <span>оборудования, Wi-Fi</span>{' '}
+            <span>Настройка</span> <span>сетевого</span> <span>оборудования, Wi-Fi</span>{' '}
             <span>и роутеров</span>
           </h1>
           <p className={styles.lead}>
