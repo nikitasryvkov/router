@@ -24,7 +24,7 @@ server.on('error', (error) => {
       error: error instanceof Error ? error.message : 'Unknown error',
     })}\n`
   );
-  process.exitCode = 1;
+  process.exit(1);
 });
 
 let isShuttingDown = false;

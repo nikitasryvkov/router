@@ -1,10 +1,11 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { App } from '../src/app/App';
 
 describe('landing page DOM contracts', () => {
   afterEach(() => {
     cleanup();
+    vi.unstubAllGlobals();
   });
 
   it('renders the main heading and contact links', () => {
@@ -72,5 +73,58 @@ describe('landing page DOM contracts', () => {
 
     expect(screen.getAllByText('Wi-Fi на большой площади').length).toBeGreaterThan(0);
     expect(screen.getAllByText('от 6 000 ₽').length).toBeGreaterThan(0);
+  });
+
+  it('uses runtime public config when the endpoint succeeds', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            ownerName: 'Runtime Owner',
+            inn: '123456789012',
+            ogrnip: '123456789012345',
+            email: 'runtime@example.com',
+            telegramHandle: '@runtime_user',
+            telegramUrl: 'https://t.me/runtime_user',
+          }),
+          {
+            headers: { 'Content-Type': 'application/json' },
+            status: 200,
+          }
+        )
+      )
+    );
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(
+        document.querySelectorAll('a[href="mailto:runtime@example.com"]').length
+      ).toBeGreaterThan(0);
+    });
+    expect(
+      document.querySelectorAll('a[href="https://t.me/runtime_user"]').length
+    ).toBeGreaterThan(0);
+  });
+
+  it('keeps fallback public config when the endpoint fails', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 500 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        '/api/public-config',
+        expect.objectContaining({ cache: 'no-store' })
+      );
+    });
+    expect(
+      document.querySelectorAll('a[href="mailto:denis@c777.ru"]').length
+    ).toBeGreaterThan(0);
+    expect(
+      document.querySelectorAll('a[href="https://t.me/czzttt"]').length
+    ).toBeGreaterThan(0);
   });
 });

@@ -82,7 +82,67 @@
   }
 
   .tableWrap {
+    overflow-x: visible;
+    border: 0;
     border-radius: 0;
-    margin-inline: -14px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .table {
+    min-width: 0;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table th,
+  .table td {
+    display: block;
+  }
+
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .table tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  .table tbody tr {
+    display: grid;
+    gap: 9px;
+    border: 1px solid #dfe7ef;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 18px;
+    box-shadow: 0 12px 32px rgba(15, 38, 63, 0.06);
+  }
+
+  .table th,
+  .table td {
+    border-bottom: 0;
+    padding: 0;
+  }
+
+  .table tbody th {
+    width: 100%;
+    font-size: 1.04rem;
+  }
+
+  .table tbody td:nth-child(2) {
+    width: auto;
+  }
+
+  .table tbody td:nth-child(2)::before {
+    color: #526173;
+    content: 'Цена: ';
+    font-weight: 700;
   }
 }

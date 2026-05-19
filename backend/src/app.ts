@@ -1,6 +1,8 @@
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { serverConfig } from './config/env.js';
+import type { ServerConfig } from './config/env.js';
 import { publicConfigRouter } from './controllers/publicConfigController.js';
 import { healthRouter } from './health/healthController.js';
 import { getRequestId, getRequestPath } from './security/requestContext.js';
@@ -14,6 +16,10 @@ type HttpError = Error & {
   expose?: boolean;
   status?: number;
   statusCode?: number;
+};
+
+type AppOptions = {
+  trustProxy?: ServerConfig['trustProxy'];
 };
 
 function getHttpStatus(error: unknown): number {
@@ -45,11 +51,11 @@ function getPublicErrorMessage(error: unknown, status: number): string {
   return status >= 500 ? 'Internal server error' : 'Request error';
 }
 
-export function createApp() {
+export function createApp(options: AppOptions = {}) {
   const app = express();
 
   app.disable('x-powered-by');
-  app.set('trust proxy', 1);
+  app.set('trust proxy', options.trustProxy ?? serverConfig.trustProxy);
 
   app.use(createSecurityHeaders());
   app.use(technicalRequestLogger);
@@ -84,21 +90,19 @@ export function createApp() {
       _next: express.NextFunction
     ) => {
       const status = getHttpStatus(error);
-      const requestId = getRequestId(request);
-      const logMessage = {
-        level: status >= 500 ? 'error' : 'warn',
-        ...(requestId ? { requestId } : {}),
-        method: request.method,
-        path: getRequestPath(request),
-        status,
-        message: status >= 500 ? 'Unhandled server error' : 'Request failed',
-      };
-      const logLine = `${JSON.stringify(logMessage)}\n`;
 
       if (status >= 500) {
-        process.stderr.write(logLine);
-      } else {
-        process.stdout.write(logLine);
+        const requestId = getRequestId(request);
+        const logMessage = {
+          level: 'error',
+          ...(requestId ? { requestId } : {}),
+          method: request.method,
+          path: getRequestPath(request),
+          status,
+          message: 'Unhandled server error',
+        };
+
+        process.stderr.write(`${JSON.stringify(logMessage)}\n`);
       }
 
       response.status(status).json({ error: getPublicErrorMessage(error, status) });

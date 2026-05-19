@@ -7,9 +7,12 @@ export type PublicSiteConfig = {
   telegramUrl: string;
 };
 
+export type TrustProxyConfig = boolean | number;
+
 export type ServerConfig = {
   nodeEnv: 'development' | 'test' | 'production';
   port: number;
+  trustProxy: TrustProxyConfig;
   publicConfig: PublicSiteConfig;
 };
 
@@ -23,6 +26,29 @@ function readString(name: string, fallback: string): string {
 function readPort(name: string, fallback: number): number {
   const value = Number(process.env[name]);
   return Number.isInteger(value) && value > 0 && value < 65536 ? value : fallback;
+}
+
+function readTrustProxy(name: string, fallback: TrustProxyConfig): TrustProxyConfig {
+  const value = process.env[name]?.trim().toLowerCase();
+
+  if (!value) {
+    return fallback;
+  }
+
+  if (value === 'true') {
+    return true;
+  }
+
+  if (value === 'false') {
+    return false;
+  }
+
+  const hopCount = Number(value);
+  if (Number.isInteger(hopCount) && hopCount >= 0 && hopCount <= 10) {
+    return hopCount;
+  }
+
+  throw new Error(`${name} must be false, true, or an integer from 0 to 10`);
 }
 
 function readNodeEnv(): ServerConfig['nodeEnv'] {
@@ -86,6 +112,7 @@ function createServerConfig(): ServerConfig {
   return {
     nodeEnv: readNodeEnv(),
     port: readPort('PORT', 8080),
+    trustProxy: readTrustProxy('TRUST_PROXY', 1),
     publicConfig,
   };
 }

@@ -1,17 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { defaultSiteConfig, type SiteConfig, validateSiteConfig } from './siteConfig';
-import { SiteConfigContext, type SiteConfigContextValue } from './siteConfigContext';
+import { SiteConfigContext } from './siteConfigContext';
 
 type SiteConfigProviderProps = {
   children: ReactNode;
 };
 
+function reportRuntimeConfigIssue(message: string): void {
+  if (import.meta.env.MODE !== 'test') {
+    console.warn(`[site-config] ${message}`);
+  }
+}
+
 export function SiteConfigProvider({ children }: SiteConfigProviderProps) {
-  const [value, setValue] = useState<SiteConfigContextValue>({
-    config: defaultSiteConfig,
-    source: 'fallback',
-  });
+  const [config, setConfig] = useState<SiteConfig>(defaultSiteConfig);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -24,15 +27,24 @@ export function SiteConfigProvider({ children }: SiteConfigProviderProps) {
         });
 
         if (!response.ok) {
+          reportRuntimeConfigIssue(
+            `Runtime config request failed with HTTP ${response.status}; using fallback config.`
+          );
           return;
         }
 
         const runtimeConfig = validateSiteConfig((await response.json()) as SiteConfig);
-        setValue({ config: runtimeConfig, source: 'runtime' });
+        setConfig(runtimeConfig);
       } catch (error) {
         if (error instanceof DOMException && error.name === 'AbortError') {
           return;
         }
+
+        reportRuntimeConfigIssue(
+          `Runtime config could not be loaded; using fallback config. ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`
+        );
       }
     }
 
@@ -45,10 +57,9 @@ export function SiteConfigProvider({ children }: SiteConfigProviderProps) {
 
   const memoizedValue = useMemo(
     () => ({
-      config: value.config,
-      source: value.source,
+      config,
     }),
-    [value]
+    [config]
   );
 
   return (

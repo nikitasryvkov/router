@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import type { Server } from 'node:http';
 import { after, before, describe, it } from 'node:test';
 import { createApp } from '../src/app.js';
+import { normalizeRequestId } from '../src/security/requestContext.js';
 
 type PublicConfigResponse = {
   email: string;
@@ -37,6 +38,15 @@ after(async () => {
 });
 
 describe('backend HTTP contracts', () => {
+  it('returns an empty root response without caching', async () => {
+    const response = await fetch(`${baseUrl}/`);
+    const body = await response.text();
+
+    assert.equal(response.status, 204);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.equal(body, '');
+  });
+
   it('returns health status', async () => {
     const response = await fetch(`${baseUrl}/api/health`);
     const body = await response.json();
@@ -79,5 +89,20 @@ describe('backend HTTP contracts', () => {
     assert.equal(response.headers.get('referrer-policy'), 'no-referrer');
     assert.match(csp, /form-action 'none'/);
     assert.match(csp, /frame-ancestors 'none'/);
+  });
+
+  it('uses configurable trust proxy settings', () => {
+    assert.equal(createApp({ trustProxy: false }).get('trust proxy'), false);
+    assert.equal(createApp({ trustProxy: 2 }).get('trust proxy'), 2);
+  });
+});
+
+describe('request context normalization', () => {
+  it('accepts only short technical request ids', () => {
+    assert.equal(normalizeRequestId(' request-123 '), 'request-123');
+    assert.equal(normalizeRequestId(''), undefined);
+    assert.equal(normalizeRequestId('request id with spaces'), undefined);
+    assert.equal(normalizeRequestId('request-id-with-newline\n'), undefined);
+    assert.equal(normalizeRequestId('a'.repeat(65)), undefined);
   });
 });
